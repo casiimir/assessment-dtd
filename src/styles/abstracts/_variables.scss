@@ -1,0 +1,24 @@
+// General colours
+$color-background: #fff;
+$color-text: #111;
+$color-text-faded: #d1d1d1;
+$color-text-small-faded: #767676;
+$color-link: #767676;
+$color-link-hover: #111;
+$color-placeholder: rgba(0, 0, 0, 0.05);
+$color-demos-alt-background: #eee;
+
+// Form colours
+$color-form-input-radio-border: #d1d1d1;
+$color-form-input-radio-border-checked: #007fff;
+$color-form-input-radio-dot-checked: #007fff;
+
+// Buttons colours
+$color-button-primary-background: #111;
+$color-button-primary-background-hover: #222;
+$color-button-primary-text: #fff;
+
+// Breakpoints per i media query
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;

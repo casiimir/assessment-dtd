@@ -1,0 +1,10 @@
+@import "@/styles/abstracts/variables.scss";
+@import "@/styles/abstracts/mixins.scss";
+
+.Homepage {
+  @include respond-to(md) {
+  }
+
+  @include respond-to(lg) {
+  }
+}
