@@ -1,6 +1,7 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaImage, FaHeart } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 
@@ -13,26 +14,45 @@ enum Categories {
 }
 
 const Navbar = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState<string | string[]>(
+    router.query.search || ""
+  );
   const [activeCategory, setActiveCategory] = useState<Categories>(
     Categories.Foto
   );
+
+  useEffect(() => {
+    if (router.query.search) {
+      setInputValue(router.query.search);
+    }
+  }, [router.query.search]);
 
   const onHandleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     if (!inputValue.length) {
-      setInputValue(randWordGen());
+      const randomWord = randWordGen();
+
+      setInputValue(randomWord);
+      router.push(`/photo/${randomWord}`);
     } else {
+      router.push(`/photo/${inputValue}`);
     }
-    // TODO: do something
   };
 
   const onHandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
 
-  const onHandleCategory = (e: React.MouseEvent) =>
+  const onHandleCategory = (e: React.MouseEvent) => {
+    if (e.currentTarget.id === "foto") {
+      router.push("/");
+    } else {
+      router.push("/favourite");
+    }
+    setInputValue("");
     setActiveCategory((e.currentTarget as HTMLLIElement).id as Categories);
+  };
 
   const onHandleClearButton = () => setInputValue("");
 
