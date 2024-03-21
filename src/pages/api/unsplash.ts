@@ -19,12 +19,16 @@ export default async function handler(
       response = await axios.get(
         `https://api.unsplash.com/search/photos?query=${req.query.search}&client_id=${ACCESS_KEY}`
       );
+    } else if (req.query.id) {
+      response = await axios.get(
+        `https://api.unsplash.com/photos/${req.query.id}?client_id=${ACCESS_KEY}`
+      );
     } else {
       response = await axios.get(
         `https://api.unsplash.com/photos?client_id=${ACCESS_KEY}`
       );
     }
-    res.status(200).json(response.data);
+    res.status(200).json(response?.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Failed to fetch Unsplash API:", error.message);

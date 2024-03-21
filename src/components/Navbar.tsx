@@ -35,9 +35,9 @@ const Navbar = () => {
       const randomWord = randWordGen();
 
       setInputValue(randomWord);
-      router.push(`/photo/${randomWord}`);
+      router.push(`/photo/s/${randomWord}`);
     } else {
-      router.push(`/photo/${inputValue}`);
+      router.push(`/photo/s/${inputValue}`);
     }
   };
 
@@ -63,7 +63,8 @@ const Navbar = () => {
           className={styles.logo}
           src="/images/logo.svg"
           width="120"
-          height="100"
+          height="120"
+          priority={true}
           alt="Cerca Foto logo"
         />
       </Link>

@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Gallery from "@/components/Gallery";
-import { PhotoType } from "@/types/main";
-
-import styles from "@/styles/pages/photo_d.module.scss";
 import axios from "axios";
 
-export default function Photo_d() {
+import { PhotoType } from "@/types/main";
+import styles from "@/styles/pages/photo_d.module.scss";
+import PhotoDetail from "@/components/PhotoDetail";
+
+export default function Photo_id() {
   const router = useRouter();
-  const [photos, setPhotos] = useState<PhotoType[]>([]);
+  const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    const fetchPhotos = async () => {
+    const fetchPhoto = async () => {
       setIsLoading(true);
 
       try {
-        if (router.query.search) {
+        if (router.query.id) {
           const response = await axios.get(
-            `/api/unsplash?search=${router.query.search}`
+            `/api/unsplash?id=${router.query.id}`
           );
-
-          setPhotos(response.data.results);
+          setPhoto(response.data);
           setError("");
         }
       } catch (err) {
@@ -31,19 +30,20 @@ export default function Photo_d() {
           ? err.message
           : "An unexpected error occurred";
 
-        setError("Failed to fetch photos.");
-        console.error("Failed to fetch photos:", error);
+        setError("Failed to fetch photo.");
+        console.error("Failed to fetch photo:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchPhotos();
-  }, [router.query.search]);
+    fetchPhoto();
+  }, [router.query.id]);
 
   return (
     <>
       <Head>
+        {/* TODO: add SEO title by router.query.id (?) */}
         <title>Cerca Foto - Dipartimento per la Trasformazione Digitale</title>
         <meta
           name="description"
@@ -53,8 +53,7 @@ export default function Photo_d() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.photo_d}>
-        <h1 className={styles.title}>{router.query.search}</h1>
-        <Gallery photos={photos} isLoading={isLoading} error={error} />
+        {photo ? <PhotoDetail photoData={photo} /> : <p>Foto non trovata...</p>}
       </main>
     </>
   );
