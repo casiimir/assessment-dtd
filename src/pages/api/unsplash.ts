@@ -13,10 +13,17 @@ export default async function handler(
   }
 
   try {
-    const response = await axios.get(
-      `https://api.unsplash.com/photos?client_id=${ACCESS_KEY}`
-    );
+    let response;
 
+    if (req.query.search) {
+      response = await axios.get(
+        `https://api.unsplash.com/search/photos?query=${req.query.search}&client_id=${ACCESS_KEY}`
+      );
+    } else {
+      response = await axios.get(
+        `https://api.unsplash.com/photos?client_id=${ACCESS_KEY}`
+      );
+    }
     res.status(200).json(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
