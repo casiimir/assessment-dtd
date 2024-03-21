@@ -1,0 +1,10 @@
+.photo {
+  cursor: zoom-in;
+  transition: filter 0.35s;
+  -webkit-user-drag: none;
+
+  &:hover,
+  &:active {
+    filter: grayscale(0.7) contrast(1.2);
+  }
+}

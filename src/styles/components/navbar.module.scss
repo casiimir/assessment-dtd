@@ -8,6 +8,7 @@
   padding: 10px 20px 0;
   background-color: $color-background;
   border-bottom: 1px solid $color-text-faded;
+  z-index: 1;
 
   @include respond-to(md) {
     flex-direction: row;

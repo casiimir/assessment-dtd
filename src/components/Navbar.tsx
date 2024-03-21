@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaSearch, FaImage, FaHeart } from "react-icons/fa";
+import { FaImage, FaHeart } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 
 import { randWordGen } from "@/utils";
