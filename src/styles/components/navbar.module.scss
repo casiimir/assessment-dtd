@@ -1,0 +1,73 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.navbar {
+  @include flex-container(column, flex-start, center);
+  position: sticky;
+  top: 0;
+  padding: 10px 20px 0;
+  background-color: $color-background;
+  border-bottom: 1px solid $color-text-faded;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    gap: 40px;
+    padding: 10px 20px;
+  }
+
+  @include respond-to(lg) {
+    gap: 80px;
+  }
+
+  .logo {
+    min-width: 120px;
+  }
+
+  .searchIcon,
+  .clearButton {
+    @include flex-container();
+    position: absolute;
+    padding: 0 14px;
+    border: 0;
+    background: transparent;
+    font-size: 18px;
+    color: $color-link;
+  }
+
+  .clearButton {
+    right: 10px;
+    border-left: 1px solid $color-text-faded;
+    font-family: $font-icon;
+    cursor: pointer;
+  }
+
+  .category {
+    @include flex-container(row, flex-start, flex-start, 20px);
+
+    .item {
+      @include flex-container(row, center, center);
+      padding: 10px 20px;
+      color: $color-text-small-faded;
+      box-sizing: content-box;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.35s;
+
+      &:active {
+        color: $color-text;
+      }
+    }
+
+    .activeItem {
+      color: $color-text;
+      border-bottom: 2px solid;
+
+      @include respond-to(md) {
+        border-bottom: 0;
+        background-color: $color-text;
+        color: $color-background;
+        border-radius: 4px;
+      }
+    }
+  }
+}
