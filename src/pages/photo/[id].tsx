@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 import { PhotoType } from "@/types/main";
-import styles from "@/styles/pages/photo_d.module.scss";
+import styles from "@/styles/pages/photo_id.module.scss";
 import PhotoDetail from "@/components/PhotoDetail";
 
 export default function Photo_id() {
@@ -52,7 +52,7 @@ export default function Photo_id() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.photo_d}>
+      <main className={styles.photo_id}>
         {photo ? <PhotoDetail photoData={photo} /> : <p>Foto non trovata...</p>}
       </main>
     </>
