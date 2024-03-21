@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Gallery from "@/components/Gallery";
 import { PhotoType } from "@/types/main";
 
-import styles from "@/styles/pages/photo_d.module.scss";
+import styles from "@/styles/pages/photo_s.module.scss";
 import axios from "axios";
 
 export default function Photo_d() {
