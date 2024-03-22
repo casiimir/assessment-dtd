@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Photo from "@/components/Photo";
 import { PhotoType } from "@/types/main";
@@ -32,4 +33,4 @@ const Gallery = ({ photos, isLoading, error }: GalleryType) => {
   );
 };
 
-export default Gallery;
+export default memo(Gallery);
