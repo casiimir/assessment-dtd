@@ -6,6 +6,7 @@ import axios from "axios";
 import { PhotoType } from "@/types/main";
 import styles from "@/styles/pages/photo_id.module.scss";
 import PhotoDetail from "@/components/PhotoDetail";
+import Spinner from "@/components/Spinner";
 
 export default function Photo_id() {
   const router = useRouter();
@@ -40,6 +41,10 @@ export default function Photo_id() {
     fetchPhoto();
   }, [router.query.id]);
 
+  if (error) {
+    return <div>Errore! Ricaricare la pagina o riprovare.{error}</div>;
+  }
+
   return (
     <>
       <Head>
@@ -53,7 +58,13 @@ export default function Photo_id() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.photo_id}>
-        {photo ? <PhotoDetail photoData={photo} /> : <p>Foto non trovata...</p>}
+        {isLoading ? (
+          <Spinner />
+        ) : photo ? (
+          <PhotoDetail photoData={photo} />
+        ) : (
+          <p>Foto non trovata...</p>
+        )}
       </main>
     </>
   );

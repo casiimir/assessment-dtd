@@ -2,6 +2,7 @@ import { memo } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Pagination from "rc-pagination";
 
+import Spinner from "@/components/Spinner";
 import Photo from "@/components/Photo";
 import { PhotoType } from "@/types/main";
 import styles from "@/styles/components/gallery.module.scss";
@@ -28,8 +29,6 @@ const Gallery = ({
     setPage(page);
   };
 
-  // TODO: add spinner component
-
   if (error) {
     return <div>Errore! Ricaricare la pagina o riprovare.{error}</div>;
   }
@@ -42,7 +41,7 @@ const Gallery = ({
       >
         <Masonry gutter="20px">
           {isLoading ? (
-            <p>Sto caricando ...</p>
+            <Spinner />
           ) : (
             photos.map((photo) => <Photo photoData={photo} key={photo.id} />)
           )}
