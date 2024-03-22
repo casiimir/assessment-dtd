@@ -1,0 +1,30 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.spinnerOverlay {
+  @include flex-container(row, center, center);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: $color-text-faded;
+
+  .spinner {
+    border: 4px solid $color-placeholder;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-left-color: $color-form-input-radio-border-checked;
+    animation: spin 1s infinite linear;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -14,7 +14,7 @@ export default async function handler(
 
   try {
     let response;
-    console.log(req.query);
+
     if (req.query.search && req.query.page) {
       response = await axios.get(
         `https://api.unsplash.com/search/photos?query=${req.query.search}&page=${req.query.page}&per_page=13&client_id=${ACCESS_KEY}`

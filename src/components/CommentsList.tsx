@@ -2,6 +2,7 @@ import { useState, useEffect, memo } from "react";
 import axios from "axios";
 import { CommentType } from "@/types/main";
 import styles from "@/styles/components/commentsList.module.scss";
+import Spinner from "./Spinner";
 
 interface CommentsListProps {
   photoId: string;
@@ -37,27 +38,35 @@ const CommentsList = ({ photoId, commentsList }: CommentsListProps) => {
     fetchComments();
   }, [commentsList, photoId]);
 
+  if (error) {
+    return <div>Errore! Ricaricare la pagina o riprovare.{error}</div>;
+  }
+
   return (
-    <>
+    <div className={styles.commentsList}>
       <h3>Commenti</h3>
-      {comments.length ? (
+      {isLoading ? (
+        <Spinner />
+      ) : comments.length ? (
         comments.map((comment: CommentType) => {
           const date = `${comment.createdAt.split("-")[1]}/${
             comment.createdAt.split("-")[0]
           }`;
 
           return (
-            <div className={styles.comments__item} key={comment._id}>
+            <div className={styles.commentsList__item} key={comment._id}>
               <h4>{comment.username}</h4>
               <p>{comment.text}</p>
-              <p className={styles.comments__item_date}>Inviato il {date}</p>
+              <p className={styles.commentsList__item_date}>
+                Inviato il {date}
+              </p>
             </div>
           );
         })
       ) : (
         <h4>Nessun commento presente</h4>
       )}
-    </>
+    </div>
   );
 };
 
