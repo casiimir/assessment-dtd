@@ -10,18 +10,21 @@ import axios from "axios";
 export default function Photo_d() {
   const router = useRouter();
   const [photos, setPhotos] = useState<PhotoType[]>([]);
+  const [totalPhotos, setTotalPhotos] = useState(0);
+  const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchPhotos = async () => {
       setIsLoading(true);
+
       try {
         if (router.query.search) {
           const response = await axios.get(
-            `/api/unsplash?search=${router.query.search}`
+            `/api/unsplash?search=${router.query.search}&page=${page}`
           );
-
+          setTotalPhotos(response.data.total);
           setPhotos(response.data.results);
           setError("");
         }
@@ -38,7 +41,7 @@ export default function Photo_d() {
     };
 
     fetchPhotos();
-  }, [router.query.search]);
+  }, [page, router.query.search]);
 
   return (
     <>
@@ -54,7 +57,14 @@ export default function Photo_d() {
       </Head>
       <main className={styles.photo_d}>
         <h1 className={styles.title}>{router.query.search}</h1>
-        <Gallery photos={photos} isLoading={isLoading} error={error} />
+        <Gallery
+          photos={photos}
+          totalPhotos={totalPhotos}
+          page={page}
+          setPage={setPage}
+          isLoading={isLoading}
+          error={error}
+        />
       </main>
     </>
   );

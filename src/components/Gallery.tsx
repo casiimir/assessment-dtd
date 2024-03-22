@@ -1,34 +1,62 @@
 import { memo } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import Pagination from "rc-pagination";
+
 import Photo from "@/components/Photo";
 import { PhotoType } from "@/types/main";
 import styles from "@/styles/components/gallery.module.scss";
+import "rc-pagination/assets/index.css";
 
 interface GalleryType {
   photos: PhotoType[];
+  totalPhotos?: number;
+  page?: number;
+  setPage?: Function;
   isLoading: boolean;
   error: string;
 }
 
-const Gallery = ({ photos, isLoading, error }: GalleryType) => {
+const Gallery = ({
+  photos,
+  totalPhotos = 0,
+  page = 0,
+  setPage = () => {},
+  isLoading,
+  error,
+}: GalleryType) => {
+  const updatePage = (page: number) => {
+    setPage(page);
+  };
+
   // TODO: add spinner component
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Errore! Ricaricare la pagina o riprovare.{error}</div>;
   }
 
   return (
     <div className={styles.gallery}>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 576: 1, 656: 2, 992: 3 }}>
+      <ResponsiveMasonry
+        className={styles.grid}
+        columnsCountBreakPoints={{ 576: 1, 656: 2, 992: 3 }}
+      >
         <Masonry gutter="20px">
-          {photos.map((photo) => (
-            <Photo photoData={photo} key={photo.id} />
-          ))}
+          {isLoading ? (
+            <p>Sto caricando ...</p>
+          ) : (
+            photos.map((photo) => <Photo photoData={photo} key={photo.id} />)
+          )}
         </Masonry>
       </ResponsiveMasonry>
+      {totalPhotos > 0 && (
+        <Pagination
+          className={styles.pagination}
+          current={page}
+          pageSize={10}
+          onChange={updatePage}
+          total={totalPhotos}
+        />
+      )}
     </div>
   );
 };
