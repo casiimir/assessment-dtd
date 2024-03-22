@@ -26,6 +26,11 @@ export interface PhotoType {
   };
 }
 
+export interface FavouriteType {
+  _id: string;
+  data: PhotoType;
+}
+
 export interface CommentType {
   _id: string;
   username: string;

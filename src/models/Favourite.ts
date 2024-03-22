@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
-// TODO: to be defined...
 const FavouriteSchema = new mongoose.Schema({
   data: { type: mongoose.Schema.Types.Mixed },
 });
 
-export default mongoose.models.Comment ||
+export default mongoose.models.Favourite ||
   mongoose.model("Favourite", FavouriteSchema);

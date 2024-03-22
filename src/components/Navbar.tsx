@@ -48,7 +48,7 @@ const Navbar = () => {
     if (e.currentTarget.id === "foto") {
       router.push("/");
     } else {
-      router.push("/favourite");
+      router.push("/favourites");
     }
     setInputValue("");
     setActiveCategory((e.currentTarget as HTMLLIElement).id as Categories);

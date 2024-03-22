@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Image from "next/image";
 import { FaRegHeart, FaHeart, FaCalendar, FaCamera } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { PhotoType } from "@/types/main";
 import Comments from "@/components/Comments";
 import styles from "@/styles/components/photoDetail.module.scss";
+import axios from "axios";
 
 interface PhotoDetailProps {
   photoData: PhotoType;
@@ -13,9 +14,36 @@ interface PhotoDetailProps {
 const PhotoDetail = ({ photoData }: PhotoDetailProps) => {
   const [isFavourite, setFavourite] = useState<boolean>(false);
 
-  const onHandleFavourite = () => {
-    setFavourite((prev) => !prev);
-    // TODO: add mongoose write to DB (favourites) logic
+  useEffect(() => {
+    const checkFavouriteStatus = async () => {
+      try {
+        const response = await axios.get(`/api/favourites?id=${photoData.id}`);
+
+        setFavourite(response.data.isPresent);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    checkFavouriteStatus();
+  }, [photoData.id]);
+
+  const onHandleFavourite = async () => {
+    try {
+      if (isFavourite) {
+        await axios.delete(`/api/favourites?id=${photoData.id}`);
+        setFavourite(false);
+      } else {
+        await axios.post(`/api/favourites`, { data: photoData });
+        setFavourite(true);
+      }
+    } catch (err) {
+      const error = axios.isAxiosError(err)
+        ? err.message
+        : "An unexpected error occurred";
+
+      console.error("Failed to add favourites:", error);
+    }
   };
 
   return (
@@ -91,4 +119,4 @@ const PhotoDetail = ({ photoData }: PhotoDetailProps) => {
   );
 };
 
-export default PhotoDetail;
+export default memo(PhotoDetail);
