@@ -25,3 +25,11 @@ export interface PhotoType {
     name: string;
   };
 }
+
+export interface CommentType {
+  _id: string;
+  username: string;
+  text: string;
+  imageId: string;
+  createdAt: string;
+}
