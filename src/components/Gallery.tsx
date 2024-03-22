@@ -9,7 +9,7 @@ import "rc-pagination/assets/index.css";
 
 interface GalleryType {
   photos: PhotoType[];
-  totalPhotos?: number;
+  totalPages?: number;
   page?: number;
   setPage?: Function;
   isLoading: boolean;
@@ -18,7 +18,7 @@ interface GalleryType {
 
 const Gallery = ({
   photos,
-  totalPhotos = 0,
+  totalPages = 0,
   page = 0,
   setPage = () => {},
   isLoading,
@@ -48,13 +48,13 @@ const Gallery = ({
           )}
         </Masonry>
       </ResponsiveMasonry>
-      {totalPhotos > 0 && (
+      {totalPages > 0 && (
         <Pagination
           className={styles.pagination}
           current={page}
           pageSize={10}
           onChange={updatePage}
-          total={totalPhotos}
+          total={totalPages}
         />
       )}
     </div>
