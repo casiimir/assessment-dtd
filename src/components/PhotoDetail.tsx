@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaRegHeart, FaHeart, FaCalendar, FaCamera } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { PhotoType } from "@/types/main";
+import Comments from "@/components/Comments";
 import styles from "@/styles/components/photoDetail.module.scss";
 
 interface PhotoDetailProps {
@@ -84,6 +85,8 @@ const PhotoDetail = ({ photoData }: PhotoDetailProps) => {
           </li>
         )}
       </ul>
+      <hr />
+      <Comments photoId={photoData.id} />
     </section>
   );
 };

@@ -18,6 +18,11 @@ a {
   }
 }
 
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
 form {
   @include flex-container(column, center);
   position: relative;
@@ -30,6 +35,27 @@ h1 {
   font-weight: bold;
 }
 
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.1rem;
+  color: $color-text-small-faded;
+}
+
+hr {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid $color-text-faded;
+}
+
 input {
   width: 100%;
   height: 44px;
@@ -37,9 +63,23 @@ input {
   border-radius: 24px;
   border: 0;
   background-color: $color-demos-alt-background;
-  font-family: "BlinkMacSystemFont", "San Francisco", "Helvetica Neue",
-    "Helvetica", "Ubuntu", "Roboto", "Noto", "Segoe UI", "Arial", "sans-serif";
+  font-family: $font;
   font-size: 14px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 4px;
+  background-color: $color-demos-alt-background;
+  font-family: $font;
+  font-size: 14px;
+  resize: none;
   outline: none;
   -webkit-appearance: none;
 }

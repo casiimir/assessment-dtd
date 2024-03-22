@@ -1,0 +1,11 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.commentsList {
+  &__item {
+    &_date {
+      color: $color-text-small-faded;
+      font-size: 12px;
+    }
+  }
+}

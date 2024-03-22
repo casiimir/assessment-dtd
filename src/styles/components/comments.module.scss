@@ -1,0 +1,37 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.comments {
+  @include flex-container(column, flex-start, flex-start, 20px);
+  width: 100%;
+
+  &__form {
+    .nameField,
+    .messageField {
+      padding: 12px 20px;
+      border-radius: 4px;
+    }
+
+    .submitBtn {
+      margin-top: 20px;
+      width: 200px;
+      padding: 0;
+      background-color: $color-background;
+      border: 1px solid $color-text;
+      color: $color-text;
+      text-align: center;
+      transition: all 0.35s;
+
+      &:hover,
+      &:active {
+        background-color: $color-text;
+        color: $color-background;
+      }
+    }
+  }
+
+  @include respond-to(md) {
+    width: 712px;
+    margin-right: auto;
+  }
+}
