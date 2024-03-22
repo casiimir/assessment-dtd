@@ -1,8 +1,34 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
 .gallery {
   margin: 40px 0;
+
+  @include respond-to(md) {
+    @include flex-container();
+  }
 
   img {
     width: auto;
     height: auto;
+  }
+  .grid {
+    @include respond-to(md) {
+      width: calc(100% - 50px);
+      margin-left: auto;
+    }
+  }
+
+  .pagination {
+    @include flex-container(row, center, center);
+    margin-top: 50px;
+    width: 100%;
+
+    @include respond-to(md) {
+      @include flex-container(column);
+      position: fixed;
+      margin: 0;
+      width: 50px;
+    }
   }
 }
