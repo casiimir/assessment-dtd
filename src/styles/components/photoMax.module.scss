@@ -35,7 +35,7 @@
     object-fit: cover;
     margin-bottom: -8px;
 
-    @include respond-to(md) {
+    @include respond-to(full) {
       height: 100%;
     }
   }
