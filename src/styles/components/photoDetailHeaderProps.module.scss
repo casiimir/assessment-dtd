@@ -1,0 +1,32 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.photoDetailHeader {
+  @include flex-container(row, center, flex-start);
+  width: 100%;
+
+  &__icon {
+    border-radius: 100%;
+  }
+
+  &__info {
+    @include flex-container(column, inherit, inherit, 0);
+
+    &_name {
+      font-weight: bold;
+    }
+
+    &_url {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__favourite {
+    align-self: center;
+    margin-left: auto;
+    background-color: transparent;
+    border: 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+}

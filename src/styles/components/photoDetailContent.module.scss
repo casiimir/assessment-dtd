@@ -1,0 +1,15 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.photoDetailContent {
+  @include flex-container(column);
+  width: 100%;
+
+  &__location,
+  &__calendar,
+  &__camera {
+    @include flex-container(row, center, center, 10px);
+
+    color: $color-link;
+  }
+}
