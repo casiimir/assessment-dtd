@@ -36,8 +36,8 @@ L'applicazione si avvale di pattern architetturali consolidati - come **Model-Vi
 ## Avvio del progetto
 
 ```bash
-git clone https://github.com/casiimir/assessment-dtd
-cd your-project
-npm install
-npm run dev
+1. git clone https://github.com/casiimir/assessment-dtd
+2. cd assessment-dtd
+3. npm install
+4. npm run dev
 ```
