@@ -1,24 +1,28 @@
 @import "../abstracts/variables";
 @import "../abstracts/mixins";
 
-.photoDetail {
-  @include flex-container(column, center, center, 20px);
-  position: relative;
+.photoMax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  cursor: zoom-out;
 
   .skeleton {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 600px;
+    height: 100vh;
     background-color: $color-text-faded;
     object-fit: contain;
     animation: colorPulse 0.8s alternate infinite ease-in-out;
   }
 
-  .expandIcon {
-    position: absolute;
-    top: calc(44px + 30px);
-    right: 10px;
+  .compressIcon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     color: $color-background;
     font-size: 1.6rem;
     opacity: 0;
@@ -27,10 +31,13 @@
 
   .image {
     width: 100%;
-    height: auto;
-    cursor: zoom-in;
-    transition: filter 0.35s;
-    -webkit-user-drag: none;
+    height: 100vh;
+    object-fit: cover;
+    margin-bottom: -8px;
+
+    @include respond-to(md) {
+      height: 100%;
+    }
   }
 
   .hide {
@@ -44,7 +51,7 @@
   }
 }
 
-.photoDetail:hover .expandIcon {
+.photoMax:hover .compressIcon {
   opacity: 1;
 }
 

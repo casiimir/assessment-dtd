@@ -22,11 +22,10 @@ const PhotoDetailHeader = ({
     <div className={styles.photoDetailHeader}>
       <Image
         className={styles.photoDetailHeader__icon}
-        src={profile_image.medium}
+        src={profile_image.small}
         alt={name}
         width={40}
         height={40}
-        priority={true}
       />
       <ul className={styles.photoDetailHeader__info}>
         <li className={styles.photoDetailHeader__info_name}>{name}</li>

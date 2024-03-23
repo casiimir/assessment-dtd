@@ -20,11 +20,6 @@
     gap: 80px;
   }
 
-  .logo {
-    min-width: 120px;
-    height: auto;
-  }
-
   .searchIcon,
   .clearButton {
     @include flex-container();

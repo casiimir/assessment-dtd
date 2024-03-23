@@ -3,8 +3,6 @@
 
 .photo {
   position: relative;
-  width: auto;
-  height: auto;
 }
 
 .image {
@@ -19,20 +17,37 @@
 }
 
 .skeleton {
-  width: 100%;
+  width: auto;
   height: 100%;
   background-color: $color-text-faded;
-}
-
-.photo {
-  display: block;
-  transition: opacity 0.5s ease-out;
+  object-fit: contain;
+  animation: colorPulse 0.8s alternate infinite ease-in-out;
 }
 
 .hide {
   opacity: 0;
+  transition: opacity 0.5s ease-out;
 }
 
 .show {
   opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+@keyframes colorPulse {
+  0% {
+    background-color: #eee;
+  }
+  25% {
+    background-color: #ddd;
+  }
+  50% {
+    background-color: #ccc;
+  }
+  75% {
+    background-color: #bbb;
+  }
+  100% {
+    background-color: #aaa;
+  }
 }

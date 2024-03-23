@@ -8,10 +8,10 @@
     @include flex-container();
   }
 
-  img {
-    width: auto;
-    height: auto;
-  }
+  // img {
+  //   width: auto;
+  //   height: auto;
+  // }
 
   .grid {
     @include respond-to(md) {
