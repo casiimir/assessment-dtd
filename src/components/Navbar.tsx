@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const onClickFavourites = () => {
     router.push("/favourites");
-    setInputValue("");
+    onHandleClearButton();
   };
 
   return (
@@ -46,6 +46,7 @@ const Navbar = () => {
       <Link href="/" passHref>
         <Image
           className={styles.logo}
+          onClick={onHandleClearButton}
           src="/images/logo.svg"
           width={200}
           height={200}
