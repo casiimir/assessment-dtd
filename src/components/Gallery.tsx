@@ -23,7 +23,6 @@ const Gallery = ({
   totalPages = 0,
   page = 0,
   setPage = () => {},
-  isLoading,
   error,
 }: GalleryType) => {
   const router = useRouter();
@@ -47,11 +46,9 @@ const Gallery = ({
         columnsCountBreakPoints={{ 576: 1, 656: 2, 992: 3 }}
       >
         <Masonry gutter="20px">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            photos.map((photo) => <Photo photoData={photo} key={photo.id} />)
-          )}
+          {photos.map((photo) => (
+            <Photo photoData={photo} key={photo.id} />
+          ))}
         </Masonry>
       </ResponsiveMasonry>
       {totalPages > 0 && (

@@ -34,16 +34,23 @@ const Navbar = () => {
 
   const onHandleClearButton = () => setInputValue("");
 
+  const onClickPhoto = () => router.push("/");
+
+  const onClickFavourites = () => {
+    router.push("/favourites");
+    setInputValue("");
+  };
+
   return (
     <nav className={styles.navbar}>
       <Link href="/" passHref>
         <Image
           className={styles.logo}
           src="/images/logo.svg"
-          width="120"
-          height="120"
-          priority={true}
+          width={200}
+          height={200}
           alt="Cerca Foto logo"
+          priority={true}
         />
       </Link>
       <form onSubmit={onHandleSubmit}>
@@ -76,7 +83,7 @@ const Navbar = () => {
           className={`${styles.item} ${
             !isFavouritesPage ? styles.activeItem : ""
           }`}
-          onClick={() => router.push("/")}
+          onClick={onClickPhoto}
         >
           <FaImage />
           <p>Foto</p>
@@ -85,7 +92,7 @@ const Navbar = () => {
           className={`${styles.item} ${
             isFavouritesPage ? styles.activeItem : ""
           }`}
-          onClick={() => router.push("/favourites")}
+          onClick={onClickFavourites}
         >
           <FaHeart />
           <p>Preferiti</p>

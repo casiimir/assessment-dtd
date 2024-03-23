@@ -2,6 +2,8 @@ export interface PhotoType {
   length?: number;
   alt_description: string;
   urls: {
+    full: string;
+    small: string;
     regular: string;
     thumb: string;
   };

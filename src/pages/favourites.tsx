@@ -4,6 +4,7 @@ import Head from "next/head";
 import { PhotoType, FavouriteType } from "@/types/main";
 import useFetch from "@/hooks/useFetch";
 import Gallery from "@/components/Gallery";
+import Spinner from "@/components/Spinner";
 import styles from "@/styles/pages/favourites.module.scss";
 
 export default function Favourites() {
@@ -25,6 +26,8 @@ export default function Favourites() {
     transform,
   });
 
+  if (isLoading) return <Spinner />;
+
   return (
     <>
       <Head>
@@ -36,6 +39,7 @@ export default function Favourites() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className={styles.favourites}>
         <h1>Preferiti</h1>
         {favourites.length ? (
