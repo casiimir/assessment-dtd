@@ -1,39 +1,16 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import axios from "axios";
+import useFetch from "@/hooks/useFetch";
 import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
-
 import { PhotoType } from "@/types/main";
 import styles from "@/styles/pages/home.module.scss";
 
 export default function Home() {
-  const [photos, setPhotos] = useState<PhotoType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await axios.get(`/api/unsplash`);
-        setPhotos(response.data);
-        setError("");
-      } catch (err) {
-        const error = axios.isAxiosError(err)
-          ? err.message
-          : "An unexpected error occurred";
-
-        setError("Failed to fetch photos.");
-        console.error("Failed to fetch photos:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPhotos();
-  }, []);
+  const {
+    data: photos,
+    isLoading,
+    error,
+  } = useFetch<PhotoType>({ url: "/api/unsplash" });
 
   return (
     <>

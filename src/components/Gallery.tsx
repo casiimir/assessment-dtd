@@ -14,7 +14,7 @@ interface GalleryType {
   page?: number;
   setPage?: Function;
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
 
 const Gallery = ({

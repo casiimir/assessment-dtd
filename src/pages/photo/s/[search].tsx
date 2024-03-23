@@ -1,47 +1,29 @@
-import { useEffect, useState } from "react";
-import Head from "next/head";
+import { useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import useFetch from "@/hooks/useFetch";
 import Gallery from "@/components/Gallery";
+
 import { PhotoType } from "@/types/main";
+import styles from "@/styles/pages/photo_search.module.scss";
 
-import styles from "@/styles/pages/photo_s.module.scss";
-import axios from "axios";
+interface SearchResults {
+  results: PhotoType[];
+  total_pages: number;
+}
 
-export default function Photo_d() {
+export default function PhotoSearch() {
   const router = useRouter();
-  const [photos, setPhotos] = useState<PhotoType[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const { search } = router.query;
+
   const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      setIsLoading(true);
+  const { data, isLoading, error } = useFetch<SearchResults>({
+    url: search ? `/api/unsplash?search=${search}&page=${page}` : null,
+  });
 
-      try {
-        if (router.query.search) {
-          const response = await axios.get(
-            `/api/unsplash?search=${router.query.search}&page=${page}`
-          );
-          setTotalPages(response.data.total_pages);
-          setPhotos(response.data.results);
-          setError("");
-        }
-      } catch (err) {
-        const error = axios.isAxiosError(err)
-          ? err.message
-          : "An unexpected error occurred";
-
-        setError("Failed to fetch photos.");
-        console.error("Failed to fetch photos:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPhotos();
-  }, [page, router.query.search]);
+  const photos = "results" in data ? data.results : [];
+  const totalPages = "total_pages" in data ? data.total_pages : 0;
 
   return (
     <>
@@ -55,11 +37,13 @@ export default function Photo_d() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.photo_d}>
-        <h1 className={styles.title}>{router.query.search}</h1>
+      <main className={styles.photoSearch}>
+        {search && (
+          <h1 className={styles.title}>Risultati per &quot;{search}&quot;</h1>
+        )}
         <Gallery
-          photos={photos}
-          totalPages={totalPages}
+          photos={photos as PhotoType[]}
+          totalPages={totalPages as number}
           page={page}
           setPage={setPage}
           isLoading={isLoading}
