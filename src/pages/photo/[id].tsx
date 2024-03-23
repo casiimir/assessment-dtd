@@ -1,48 +1,30 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import axios from "axios";
-
-import { PhotoType } from "@/types/main";
-import styles from "@/styles/pages/photo_id.module.scss";
+import useFetch from "@/hooks/useFetch";
 import PhotoDetail from "@/components/PhotoDetail";
 import Spinner from "@/components/Spinner";
 
+import { PhotoType } from "@/types/main";
+import styles from "@/styles/pages/photo_id.module.scss";
+
 export default function Photo_id() {
   const router = useRouter();
-  const [photo, setPhoto] = useState<PhotoType | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const { id } = router.query;
 
-  useEffect(() => {
-    const fetchPhoto = async () => {
-      setIsLoading(true);
+  const {
+    data: photo,
+    isLoading,
+    error,
+  } = useFetch<PhotoType>({
+    url: id ? `/api/unsplash?id=${id}` : "",
+  });
 
-      try {
-        if (router.query.id) {
-          const response = await axios.get(
-            `/api/unsplash?id=${router.query.id}`
-          );
-          setPhoto(response.data);
-          setError("");
-        }
-      } catch (err) {
-        const error = axios.isAxiosError(err)
-          ? err.message
-          : "An unexpected error occurred";
+  if (!id) {
+    return <Spinner />;
+  }
 
-        setError("Failed to fetch photo.");
-        console.error("Failed to fetch photo:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPhoto();
-  }, [router.query.id]);
-
-  if (error) {
-    return <div>Errore! Ricaricare la pagina o riprovare.{error}</div>;
+  if (error || !id) {
+    return <div>Errore! Ricaricare la pagina o riprovare. {error}.</div>;
   }
 
   return (
@@ -60,8 +42,8 @@ export default function Photo_id() {
       <main className={styles.photo_id}>
         {isLoading ? (
           <Spinner />
-        ) : photo ? (
-          <PhotoDetail photoData={photo} />
+        ) : "id" in photo ? (
+          <PhotoDetail photoData={photo as any} />
         ) : (
           <p>Foto non trovata...</p>
         )}

@@ -1,4 +1,5 @@
 export interface PhotoType {
+  length?: number;
   alt_description: string;
   urls: {
     regular: string;

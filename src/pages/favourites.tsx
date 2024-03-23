@@ -1,42 +1,25 @@
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import Head from "next/head";
-import axios from "axios";
 
 import { PhotoType, FavouriteType } from "@/types/main";
-import styles from "@/styles/pages/favourites.module.scss";
+import useFetch from "@/hooks/useFetch";
 import Gallery from "@/components/Gallery";
+import styles from "@/styles/pages/favourites.module.scss";
 
 export default function Favourites() {
-  const [favourites, setFavourites] = useState<PhotoType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const transform = useCallback(
+    (data: FavouriteType[]) => data.map((fav: FavouriteType) => fav.data),
+    []
+  );
 
-  useEffect(() => {
-    const fetchFavourites = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await axios.get("/api/favourites");
-        const parsedResponse = response.data.map(
-          (favourite: FavouriteType) => favourite.data
-        );
-
-        setFavourites(parsedResponse);
-        setError("");
-      } catch (err) {
-        const error = axios.isAxiosError(err)
-          ? err.message
-          : "An unexpected error occurred";
-
-        setError("Failed to fetch favourites.");
-        console.error("Failed to fetch favourites:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchFavourites();
-  }, []);
+  const {
+    data: favourites,
+    isLoading,
+    error,
+  } = useFetch<PhotoType>({
+    url: "/api/favourites",
+    transform,
+  });
 
   return (
     <>
