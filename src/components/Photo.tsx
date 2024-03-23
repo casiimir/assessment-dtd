@@ -10,6 +10,11 @@ const Photo = ({ photoData }: { photoData: PhotoType }) => {
 
   const onHandleZoom = () => router.push(`/photo/${photoData.id}`);
 
+  const aspectRatio =
+    photoData.width > photoData.height
+      ? photoData.width / 1.5 - photoData.height / 1.5
+      : photoData.height / 1.5 - photoData.width / 1.5;
+
   return (
     <div className={styles.photo}>
       {!imageLoaded && <div className={styles.skeleton} />}
@@ -17,8 +22,8 @@ const Photo = ({ photoData }: { photoData: PhotoType }) => {
         className={`${styles.image} ${imageLoaded ? styles.show : styles.hide}`}
         onClick={onHandleZoom}
         src={photoData.urls.regular}
-        width={photoData.width / 10}
-        height={photoData.height / 10}
+        width={aspectRatio}
+        height={aspectRatio}
         priority={true}
         role="button"
         alt={photoData.alt_description}

@@ -3,15 +3,17 @@ import Image from "next/image";
 import axios from "axios";
 import useFetch from "@/hooks/useFetch";
 import { useRouter } from "next/router";
-import { MdLocationOn } from "react-icons/md";
-import { FaRegHeart, FaHeart, FaCalendar, FaCamera } from "react-icons/fa";
-import Comments from "@/components/Comments";
-import { PhotoType } from "@/types/main";
 
+import Comments from "@/components/Comments";
+import PhotoDetailHeader from "@/components/PhotoDetailHeader";
+import PhotoDetailInfo from "@/components/PhotoDetailInfo";
+import PhotoDetailContent from "@/components/PhotoDetailContent";
+import { PhotoType } from "@/types/main";
 import styles from "@/styles/components/photoDetail.module.scss";
-import PhotoDetailHeader from "./PhotoDetailHeader";
-import PhotoDetailInfo from "./PhotoDetailInfo";
-import PhotoDetailContent from "./PhotoDetailContent";
+
+interface FavouriteCheckResponse {
+  isPresent: boolean;
+}
 
 interface PhotoDetailProps {
   photoData: PhotoType;
@@ -20,7 +22,7 @@ interface PhotoDetailProps {
 const PhotoDetail = ({ photoData }: PhotoDetailProps) => {
   const router = useRouter();
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
-  const { data, isLoading, error } = useFetch<{ isPresent: boolean }>({
+  const { data, error } = useFetch<FavouriteCheckResponse>({
     url: `/api/favourites?id=${photoData.id}`,
   });
 

@@ -10,7 +10,6 @@ import styles from "@/styles/pages/photo_id.module.scss";
 export default function Photo_id() {
   const router = useRouter();
   const { id } = router.query;
-
   const {
     data: photo,
     isLoading,
@@ -30,8 +29,7 @@ export default function Photo_id() {
   return (
     <>
       <Head>
-        {/* TODO: add SEO title by router.query.id (?) */}
-        <title>Cerca Foto - Dipartimento per la Trasformazione Digitale</title>
+        <title>Cerca foto - Dipartimento per la Trasformazione Digitale</title>
         <meta
           name="description"
           content="Ricerca la tua immagine perfetta tramite il progetto libero del Dipartimento per la Trasformazione Digitale"
@@ -43,7 +41,8 @@ export default function Photo_id() {
         {isLoading ? (
           <Spinner />
         ) : "id" in photo ? (
-          <PhotoDetail photoData={photo as any} />
+          // unknown forces the PhotoType typization, here it's under control
+          <PhotoDetail photoData={photo as unknown as PhotoType} />
         ) : (
           <p>Foto non trovata...</p>
         )}

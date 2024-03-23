@@ -12,6 +12,7 @@
     width: auto;
     height: auto;
   }
+
   .grid {
     @include respond-to(md) {
       width: calc(100% - 50px);
@@ -30,5 +31,11 @@
       margin: 0;
       width: 50px;
     }
+  }
+}
+
+.noPaginationGrid {
+  .grid {
+    width: 100%;
   }
 }

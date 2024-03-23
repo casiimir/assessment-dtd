@@ -3,7 +3,7 @@ import axios from "axios";
 
 interface UseFetchOptions<T> {
   url: string | null;
-  transform?: (data: any) => T[];
+  transform?: (data: any) => T[]; // It can accept any, it's controlled yet
 }
 
 interface FetchResult<T> {

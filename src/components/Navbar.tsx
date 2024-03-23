@@ -23,13 +23,9 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    if (router.query.search) {
-      setInputValue(router.query.search);
-    }
-
-    if (!router.route.includes("favourites")) {
-      setActiveCategory(Categories.Foto);
-    }
+    router.query.search && setInputValue(router.query.search);
+    router.route.includes("favourites") &&
+      setActiveCategory(Categories.Preferiti);
   }, [router.query.search, router.route]);
 
   const onHandleSubmit = (e: FormEvent): void => {
@@ -49,11 +45,8 @@ const Navbar = () => {
     setInputValue(e.target.value);
 
   const onHandleCategory = (e: React.MouseEvent) => {
-    if (e.currentTarget.id === "foto") {
-      router.push("/");
-    } else {
-      router.push("/favourites");
-    }
+    router.push(e.currentTarget.id === "foto" ? "/" : "/favourites");
+
     setInputValue("");
     setActiveCategory((e.currentTarget as HTMLLIElement).id as Categories);
   };
