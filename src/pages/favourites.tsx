@@ -8,7 +8,11 @@ import styles from "@/styles/pages/favourites.module.scss";
 
 export default function Favourites() {
   const transform = useCallback(
-    (data: FavouriteType[]) => data.map((fav: FavouriteType) => fav.data),
+    (data: FavouriteType[]) =>
+      data
+        .map((fav: FavouriteType) => fav.data)
+        .slice()
+        .reverse(),
     []
   );
 

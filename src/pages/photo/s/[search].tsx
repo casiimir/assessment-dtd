@@ -29,7 +29,7 @@ export default function PhotoSearch() {
     <>
       <Head>
         {/* TODO: add SEO title by router.query.search (?) */}
-        <title>Cerca Foto - Dipartimento per la Trasformazione Digitale</title>
+        <title>{search} - Dipartimento per la Trasformazione Digitale</title>
         <meta
           name="description"
           content="Ricerca la tua immagine perfetta tramite il progetto libero del Dipartimento per la Trasformazione Digitale"
@@ -41,14 +41,18 @@ export default function PhotoSearch() {
         {search && (
           <h1 className={styles.title}>Risultati per &quot;{search}&quot;</h1>
         )}
-        <Gallery
-          photos={photos as PhotoType[]}
-          totalPages={totalPages as number}
-          page={page}
-          setPage={setPage}
-          isLoading={isLoading}
-          error={error}
-        />
+        {Array.isArray(photos) && photos.length ? (
+          <Gallery
+            photos={photos as PhotoType[]}
+            totalPages={totalPages as number}
+            page={page}
+            setPage={setPage}
+            isLoading={isLoading}
+            error={error}
+          />
+        ) : (
+          <p>Sto cercando immagini &quot;{search}&quot;, tu ne hai?</p>
+        )}
       </main>
     </>
   );

@@ -21,8 +21,10 @@ export default async function handler(
       const comments = await Comment.find({ imageId: imageId.toString() });
 
       res.status(200).json(comments);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Error with GET method, cannot find the image." });
     }
   } else if (req.method === "POST") {
     try {

@@ -13,8 +13,8 @@ export default async function handler(
       const favourites = await Favourite.find({});
 
       res.status(200).json(favourites);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+    } catch (error) {
+      res.status(500).json({ error: "Error with GET method" });
     }
   } else if (req.method === "GET" && req.query.id) {
     try {
@@ -25,8 +25,8 @@ export default async function handler(
       } else {
         res.status(200).json({ isPresent: false });
       }
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+    } catch (error) {
+      res.status(500).json({ error: "Error with GET method or 'id' query." });
     }
   } else if (req.method === "POST") {
     try {
@@ -39,12 +39,15 @@ export default async function handler(
       ) {
         res.status(403).json({ error: "Photo already present in DB." });
       } else {
-        const savedFavourite = await newFavourite.save();
-
+        await newFavourite.save();
         res.status(201).json({ message: "Photo added to favourites" });
       }
-    } catch (error: any) {
-      res.status(400).json({ error: error.message });
+    } catch (error) {
+      res
+        .status(400)
+        .json({
+          error: "Error with POST method, the favourite was not added.",
+        });
     }
   } else if (req.method === "DELETE" && req.query.id) {
     try {
@@ -53,8 +56,12 @@ export default async function handler(
       });
 
       res.status(201).json({ message: "The photo was deleted." });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+    } catch (error) {
+      res
+        .status(500)
+        .json({
+          error: "Error with DELETE method, the favourite was not delete.",
+        });
     }
   } else {
     res.status(405).json({ success: false });

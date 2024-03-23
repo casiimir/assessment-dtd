@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Pagination from "rc-pagination";
 
@@ -25,6 +26,8 @@ const Gallery = ({
   isLoading,
   error,
 }: GalleryType) => {
+  const router = useRouter();
+
   const updatePage = (page: number) => {
     setPage(page);
   };
@@ -34,7 +37,11 @@ const Gallery = ({
   }
 
   return (
-    <div className={styles.gallery}>
+    <div
+      className={`${styles.gallery} ${
+        !router.route.includes("/photo/s/") && styles.noPaginationGrid
+      }`}
+    >
       <ResponsiveMasonry
         className={styles.grid}
         columnsCountBreakPoints={{ 576: 1, 656: 2, 992: 3 }}
