@@ -26,7 +26,11 @@ const Navbar = () => {
     if (router.query.search) {
       setInputValue(router.query.search);
     }
-  }, [router.query.search]);
+
+    if (!router.route.includes("favourites")) {
+      setActiveCategory(Categories.Foto);
+    }
+  }, [router.query.search, router.route]);
 
   const onHandleSubmit = (e: FormEvent): void => {
     e.preventDefault();
