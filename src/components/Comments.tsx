@@ -1,7 +1,6 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
 import CommentsList from "./CommentsList";
-import Spinner from "@/components/Spinner";
 import { CommentType } from "@/types/main";
 import styles from "@/styles/components/comments.module.scss";
 

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import useFetch from "@/hooks/useFetch";
 import Gallery from "@/components/Gallery";
+import Spinner from "@/components/Spinner";
 
 import { PhotoType } from "@/types/main";
 import styles from "@/styles/pages/photo_search.module.scss";
@@ -25,10 +26,11 @@ export default function PhotoSearch() {
   const photos = "results" in data ? data.results : [];
   const totalPages = "total_pages" in data ? data.total_pages : 0;
 
+  if (isLoading) return <Spinner />;
+
   return (
     <>
       <Head>
-        {/* TODO: add SEO title by router.query.search (?) */}
         <title>{search} - Dipartimento per la Trasformazione Digitale</title>
         <meta
           name="description"
@@ -51,7 +53,7 @@ export default function PhotoSearch() {
             error={error}
           />
         ) : (
-          <p>Sto cercando immagini &quot;{search}&quot;, tu ne hai?</p>
+          <p>Purtroppo non ho trovato immagini per &quot;{search}&quot;.</p>
         )}
       </main>
     </>

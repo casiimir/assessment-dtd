@@ -8,54 +8,35 @@ import { IoSearch } from "react-icons/io5";
 import { randWordGen } from "@/utils";
 import styles from "@/styles/components/navbar.module.scss";
 
-enum Categories {
-  Foto = "foto",
-  Preferiti = "preferiti",
-}
-
 const Navbar = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string | string[]>(
     router.query.search || ""
   );
-  const [activeCategory, setActiveCategory] = useState<Categories>(
-    Categories.Foto
-  );
+
+  const isFavouritesPage = router.pathname.includes("favourites");
 
   useEffect(() => {
-    router.query.search && setInputValue(router.query.search);
-    router.route.includes("favourites") &&
-      setActiveCategory(Categories.Preferiti);
-  }, [router.query.search, router.route]);
+    if (router.query.search) {
+      setInputValue(router.query.search);
+    }
+  }, [router.query.search]);
 
   const onHandleSubmit = (e: FormEvent): void => {
     e.preventDefault();
+    const searchQuery = inputValue || randWordGen();
 
-    if (!inputValue.length) {
-      const randomWord = randWordGen();
-
-      setInputValue(randomWord);
-      router.push(`/photo/s/${randomWord}`);
-    } else {
-      router.push(`/photo/s/${inputValue}`);
-    }
+    router.push(`/photo/s/${searchQuery}`);
   };
 
   const onHandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
 
-  const onHandleCategory = (e: React.MouseEvent) => {
-    router.push(e.currentTarget.id === "foto" ? "/" : "/favourites");
-
-    setInputValue("");
-    setActiveCategory((e.currentTarget as HTMLLIElement).id as Categories);
-  };
-
   const onHandleClearButton = () => setInputValue("");
 
   return (
     <nav className={styles.navbar}>
-      <Link href="/">
+      <Link href="/" passHref>
         <Image
           className={styles.logo}
           src="/images/logo.svg"
@@ -93,20 +74,18 @@ const Navbar = () => {
       <ul className={styles.category}>
         <li
           className={`${styles.item} ${
-            activeCategory === "foto" && styles.activeItem
+            !isFavouritesPage ? styles.activeItem : ""
           }`}
-          onClick={onHandleCategory}
-          id="foto"
+          onClick={() => router.push("/")}
         >
           <FaImage />
           <p>Foto</p>
         </li>
         <li
           className={`${styles.item} ${
-            activeCategory === "preferiti" && styles.activeItem
+            isFavouritesPage ? styles.activeItem : ""
           }`}
-          onClick={onHandleCategory}
-          id="preferiti"
+          onClick={() => router.push("/favourites")}
         >
           <FaHeart />
           <p>Preferiti</p>
