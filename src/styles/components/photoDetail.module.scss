@@ -4,69 +4,9 @@
 .photoDetail {
   @include flex-container(column, center, center, 20px);
 
-  .header {
-    @include flex-container(row, center, flex-start);
-    width: 100%;
-
-    &__icon {
-      border-radius: 100%;
-    }
-
-    &__info {
-      @include flex-container(column, inherit, inherit, 0);
-
-      &_name {
-        font-weight: bold;
-      }
-
-      &_url {
-        font-size: 0.8rem;
-      }
-    }
-
-    &__favourite {
-      align-self: center;
-      margin-left: auto;
-      background-color: transparent;
-      border: 0;
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-  }
-
   .image {
     width: 100%;
     height: auto;
     object-fit: cover;
-  }
-
-  .info {
-    @include flex-container(row, flex-start, center, 60px);
-    width: 100%;
-
-    &__views {
-      &_text {
-        color: $color-link;
-      }
-    }
-
-    &__downloads {
-      &_text {
-        color: $color-link;
-      }
-    }
-  }
-
-  .content {
-    @include flex-container(column);
-    width: 100%;
-
-    &__location,
-    &__calendar,
-    &__camera {
-      @include flex-container(row, center, center, 10px);
-
-      color: $color-link;
-    }
   }
 }

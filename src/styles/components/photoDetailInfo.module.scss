@@ -1,0 +1,19 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.photoDetailInfo {
+  @include flex-container(row, flex-start, center, 60px);
+  width: 100%;
+
+  &__views {
+    &_text {
+      color: $color-link;
+    }
+  }
+
+  &__downloads {
+    &_text {
+      color: $color-link;
+    }
+  }
+}
